@@ -1,0 +1,10 @@
+include: 
+  - ../nginx/docker-compose.yml
+
+services:
+  backend:
+    build: 
+      context: .
+      dockerfile: docker/Dockerfile.dev
+    volumes:
+      - .:/var/www
