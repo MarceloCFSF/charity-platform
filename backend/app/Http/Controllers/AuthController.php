@@ -18,50 +18,54 @@ class AuthController extends Controller
 
     public function login(LoginRequest $request)
     {
-        $credentials = $request->validated();
+        try {
+            $credentials = $request->validated();
+            $result = $this->authService->login($credentials);
 
-        $result = $this->authService->login($credentials);
-
-        if ($result) {
             return response()->json([
                 'message' => 'Login successful',
                 'user' => $result['user'],
                 'token' => $result['token'],
             ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], $e->getCode());
         }
-
-        return response()->json([
-            'message' => 'Invalid credentials',
-        ], 401);
     }
 
     public function register(RegisterRequest $request)
     {
-        User::create($request->validated());
-        
-        $credentials = $request->only('email', 'password');
+        try {
+            User::create($request->validated());
+    
+            $credentials = $request->only('email', 'password');
+            $result = $this->authService->login($credentials);
 
-        $result = $this->authService->login($credentials);
-
-        if ($result) {
             return response()->json([
                 'message' => 'User Registered successful',
                 'user' => $result['user'],
                 'token' => $result['token'],
             ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], $e->getCode());
         }
-
-        return response()->json([
-            'message' => 'Invalid credentials',
-        ], 401);
     }
 
     public function logout()
     {
-        $this->authService->logout();
-
-        return response()->json([
-            'message' => 'Logged out',
-        ]);
+        try {
+            $this->authService->logout();
+    
+            return response()->json([
+                'message' => 'Logged out',
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], $e->getCode());
+        }
     }
 }

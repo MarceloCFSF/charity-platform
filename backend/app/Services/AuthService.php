@@ -20,7 +20,7 @@ class AuthService
       ];
     }
 
-    return null;
+    throw new \Exception('Invalid credentials', 401);
   }
 
   public function register($data)
