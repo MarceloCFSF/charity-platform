@@ -1,0 +1,15 @@
+include:
+  - ../backend/docker-compose.dev.yml
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.dev
+    ports:
+      - "5173:5173"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    depends_on:
+      - backend

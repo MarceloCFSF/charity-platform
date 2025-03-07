@@ -1,5 +1,5 @@
 include: 
-  - ../nginx/docker-compose.yml
+  - ../nginx/docker-compose.dev.yml
 
 services:
   backend:
