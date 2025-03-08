@@ -1,13 +1,13 @@
 import { Navigate } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
-import { LoginFormProvider } from "../providers/LoginFormProvider";
-import LoginForm from "../components/LoginForm";
+import { useAuth } from "../hooks/useAuth"
 import { Alert, Box, Container, Link, Typography } from "@mui/material";
+import { RegisterFormProvider } from "../providers/RegisterFormProvider";
+import RegisterForm from "../components/RegisterForm";
 
-const Login = () => {
+const Register = () => {
   const { isAuthenticated, error } = useAuth();
 
-  if (isAuthenticated) return <Navigate to="/" />;
+  if (isAuthenticated) return <Navigate to="/" />
 
   return (
     <Container maxWidth="xs">
@@ -18,23 +18,23 @@ const Login = () => {
         justifyContent="center"
         height="100vh"
       >
-        <Typography variant="h2">Login</Typography>
+        <Typography variant="h2">Cadastro</Typography>
 
-        <LoginFormProvider>
-          <LoginForm />
-        </LoginFormProvider>
-        
+        <RegisterFormProvider>
+          <RegisterForm />
+        </RegisterFormProvider>
+
         {error && <Alert
           severity="error"
           sx={{ mb: 5 }}
         >{error}</Alert>}
 
         <Typography variant="body1">
-          Não possui cadastro? Cadastre-se <Link href="/register">aqui</Link>.
+          Já possui um cadastro? Faça login <Link href="/login">aqui</Link>.
         </Typography>
       </Box>
     </Container>
   )
 }
 
-export default Login;
+export default Register;

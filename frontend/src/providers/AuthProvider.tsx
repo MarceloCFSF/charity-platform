@@ -18,17 +18,14 @@ const AuthProvider = ({ children }: AuthProviderType) => {
     if (token) setIsAuthenticated(true);
   }, []);
 
-  const resetErrors = () => { setError(null) };
-
   const authenticate = (token: string, user: User) => {
+    setError(null);
     setUser(user);
     setIsAuthenticated(true);
     localStorage.setItem("token", token);
   };
 
   const login = async (credentials: LoginRequest) => {
-    resetErrors();
-
     try {
       const { token, user } = await authService.login(credentials);
       authenticate(token, user);
@@ -43,23 +40,30 @@ const AuthProvider = ({ children }: AuthProviderType) => {
   };
 
   const register = async (newUser: Omit<User, 'id'>) => {
-    resetErrors();
-
     try {
       const { token, user } = await authService.register(newUser);
       authenticate(token, user);
     } catch (error) {
       console.error(error);
       if (error instanceof AxiosError) {
-        setError("Não foi possível cadastrar o usuário");
+        if (error.response?.status === 422) {
+          const errors = error.response.data.errors;
+          if (errors.email) {
+            setError(errors.email[0]);
+          } else {
+            setError("Erro ao cadastrar. Verifique os dados.");
+          }
+        } else {
+          setError("Não foi possível cadastrar o usuário");
+        }
       } else {
         setError("Um erro desconhecido ocorreu");
       }
     }
   };
 
-  const logout = () => {
-    resetErrors();
+  const logout = async (isApi: boolean = true) => {
+    if (isApi) await authService.logout();
 
     setIsAuthenticated(false);
     localStorage.removeItem("token");

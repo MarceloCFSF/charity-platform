@@ -7,7 +7,7 @@ export interface AuthContextType {
   isAuthenticated: boolean;
   login: (credentials: LoginRequest) => void;
   register: (user: Omit<User, 'id'>) => void;
-  logout: () => void;
+  logout: (isApi?: boolean) => void;
   error: string | null;
 }
 
