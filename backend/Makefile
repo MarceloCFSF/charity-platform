@@ -7,7 +7,7 @@ prod:
 	$(MAKE) migrate
 
 migrate:
-	docker compose exec backend php artisan migrate
+	docker compose exec backend php artisan migrate --seed
 
 rollback:
 	docker compose exec backend php artisan migrate:rollback
