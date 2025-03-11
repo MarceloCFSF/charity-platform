@@ -18,6 +18,15 @@ const AuthProvider = ({ children }: AuthProviderType) => {
     if (token) setIsAuthenticated(true);
   }, []);
 
+  useEffect(() => {
+    const handleLogout = () => logout(false);
+    window.addEventListener("logout", handleLogout);
+
+    return () => {
+      window.removeEventListener("logout", handleLogout);
+    }
+  }, [])
+
   const authenticate = (token: string, user: User) => {
     setError(null);
     setUser(user);
