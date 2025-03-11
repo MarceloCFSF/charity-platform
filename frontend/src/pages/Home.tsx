@@ -1,24 +1,48 @@
-import { Box, Button, Typography } from "@mui/material";
-import { useAuth } from "../hooks/useAuth";
+import { Box, CircularProgress, Grid2, Typography } from "@mui/material";
+import { useInstitution } from "../hooks/useInstitution";
+import InstitutionTile from "../components/InstitutionTile";
 
 const Home = () => {
-  const { logout } = useAuth();
+  const { loading, institutions } = useInstitution();
+
+  if (loading) return (
+    <Box
+      display="flex"
+      flex={1}
+      flexDirection="column"
+      alignItems="center"
+      justifyContent="center"
+    >
+      <CircularProgress size={60} />
+    </Box>
+  );
 
   return (
     <Box
       display="flex"
       flexDirection="column"
       alignItems="center"
-      justifyContent="center"
-      height="100vh"
+      height="100%"
       gap={10}
     >
-      <Typography variant="h1">Home</Typography>
+      <Typography
+        variant="h1"
+        sx={{ fontSize: "clamp(2rem, 5vw, 6rem)" }}
+      >Instituições</Typography>
 
-      <Button 
-        variant="contained"
-        onClick={() => logout()}
-      >Sair</Button>
+      <Grid2 container spacing={2}>
+        {institutions.map((institution, index) => ( 
+          <Grid2 
+            key={`institution_${index}`}
+            size={{xs: 12, sm: 6, md: 4}}
+          >
+            <InstitutionTile 
+              key={`institution_${index}`}
+              institution={institution}
+            />
+          </Grid2>
+         ))}
+      </Grid2>
     </Box>
   )
 }

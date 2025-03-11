@@ -1,9 +1,10 @@
 import { Route, Routes } from "react-router-dom"
 import AuthProvider from "./providers/AuthProvider";
 import Home from "./pages/Home";
-import PrivateRoute from "./components/PrivateRoute";
+import PrivateRouteLayout from "./layouts/PrivateRouteLayout";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import DefaultLayout from "./layouts/DefaultLayout";
 
 const AppRoutes = () => {
   return (
@@ -12,8 +13,10 @@ const AppRoutes = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
-        <Route element={<PrivateRoute />}>
-          <Route path="/" element={<Home />} />
+        <Route element={<PrivateRouteLayout />}>
+          <Route element={<DefaultLayout />}>
+            <Route path="/" element={<Home />} />
+          </Route>
         </Route>
       </Routes>
     </AuthProvider>
