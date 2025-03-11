@@ -37,7 +37,7 @@ class AuthController extends Controller
     public function register(RegisterRequest $request)
     {
         try {
-            User::create($request->validated());
+            $this->authService->register($request->validated());
     
             $credentials = $request->only('email', 'password');
             $result = $this->authService->login($credentials);
