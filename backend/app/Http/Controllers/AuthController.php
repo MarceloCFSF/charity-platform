@@ -6,6 +6,7 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Models\User;
 use App\Services\AuthService;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -54,10 +55,15 @@ class AuthController extends Controller
         }
     }
 
+    public function me()
+    {
+        return response()->json(Auth::user());
+    }
+
     public function logout()
     {
         try {
-            $this->authService->logout();
+            $this->authService->logout(Auth::user());
     
             return response()->json([
                 'message' => 'Logged out',
@@ -65,7 +71,7 @@ class AuthController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),
-            ], $e->getCode());
+            ]);
         }
     }
 }

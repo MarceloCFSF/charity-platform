@@ -50,7 +50,7 @@ class AuthServiceTest extends TestCase
             'email' => $user->email,
             'password' => $password
         ]);
-        
+
         $this->assertNotNull($result['user']);
         $this->assertArrayHasKey('token', $result);
 
@@ -63,12 +63,16 @@ class AuthServiceTest extends TestCase
     public function test_logout_logs_out_authenticated_user()
     {
         $user = User::factory()->create();
-        Auth::login($user);
+        $user->createToken('test-token');
 
-        $this->assertTrue(Auth::check());
+        $this->assertDatabaseHas('personal_access_tokens', [
+            'tokenable_id' => $user->id,
+        ]);
 
-        $this->authService->logout();
+        $this->authService->logout($user);
 
-        $this->assertFalse(Auth::check());
+        $this->assertDatabaseMissing('personal_access_tokens', [
+            'tokenable_id' => $user->id,
+        ]);
     }
 }

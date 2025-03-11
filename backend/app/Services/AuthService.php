@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Laravel\Sanctum\PersonalAccessToken;
 
 class AuthService
 {
@@ -30,8 +31,8 @@ class AuthService
     return $user;
   }
 
-  public function logout()
+  public function logout(User $user)
   {
-    Auth::logout();
+    PersonalAccessToken::where('tokenable_id', $user->id)->delete();
   }
 }

@@ -91,6 +91,9 @@ class AuthControllerTest extends TestCase
 
     public function test_logout_returns_success_message()
     {
+        $user = User::factory()->create();
+        $this->actingAs($user, 'sanctum');
+        
         $this->authServiceMock->shouldReceive('logout')->once();
 
         $response = $this->postJson('/api/logout');
