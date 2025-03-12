@@ -37,7 +37,9 @@ const InstitutionTile = ({ institution }: InstitutionTileType) => {
       </Box>
       <Button
         startIcon={<VolunteerActivismIcon />}
+        href={`/donation/${institution.id}`}
         sx={{ minWidth: "unset" }}
+        onClick={(event) => event.stopPropagation()}
       >Doar</Button>
     </Paper>
   )

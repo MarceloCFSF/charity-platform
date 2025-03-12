@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import AuthContext from "../context/AuthContext";
 import { authService, LoginRequest } from "../services/authService";
 import { User } from "../models/user";
@@ -13,12 +13,32 @@ const AuthProvider = ({ children }: AuthProviderType) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const [error, setError] = useState<string | null>(null);
+  
+  const getUser = useCallback(async (): Promise<User | null> => {
+    try {
+      const user = await authService.getUser();
+      setUser(user);
+      return user;
+    } catch (error) {
+      console.error(error);
+      if (error instanceof AxiosError) {
+        setError("Não foi possível encontrar o usuário");
+      } else {
+        setError("Um erro desconhecido ocorreu");
+      }
+
+      return null;
+    }
+  }, []);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (token) setIsAuthenticated(true);
+    if (token) {
+      setIsAuthenticated(true);
+      if (!user) getUser();
+    }
     setLoading(false);
-  }, []);
+  }, [user, getUser]);
 
   useEffect(() => {
     const handleLogout = () => logout(false);
