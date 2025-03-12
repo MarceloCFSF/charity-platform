@@ -4,6 +4,7 @@ import { User } from "../models/user";
 
 export interface AuthContextType {
   user: User | null;
+  loading: boolean,
   isAuthenticated: boolean;
   login: (credentials: LoginRequest) => void;
   register: (user: Omit<User, 'id'>) => void;

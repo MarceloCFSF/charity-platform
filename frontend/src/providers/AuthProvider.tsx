@@ -9,6 +9,7 @@ export interface AuthProviderType {
 }
 
 const AuthProvider = ({ children }: AuthProviderType) => {
+  const [loading, setLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -16,6 +17,7 @@ const AuthProvider = ({ children }: AuthProviderType) => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) setIsAuthenticated(true);
+    setLoading(false);
   }, []);
 
   useEffect(() => {
@@ -83,6 +85,7 @@ const AuthProvider = ({ children }: AuthProviderType) => {
     <AuthContext.Provider
       value={{ 
         user,
+        loading,
         isAuthenticated,
         login,
         logout,
