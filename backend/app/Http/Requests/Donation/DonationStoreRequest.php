@@ -23,7 +23,6 @@ class DonationStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => 'required|exists:users,id',
             'institution_id' => 'required|exists:institutions,id',
             'value' => 'required|decimal:2|min:5'
         ];

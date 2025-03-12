@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DonationController;
 use App\Http\Controllers\InstitutionController;
 use Illuminate\Support\Facades\Route;
 
@@ -13,4 +14,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
   Route::get('/institutions', [InstitutionController::class, 'index']);
   Route::get('/institutions/{institution}', [InstitutionController::class, 'show']);
+
+  Route::resource('/donations', DonationController::class);
 });

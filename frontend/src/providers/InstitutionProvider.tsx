@@ -12,7 +12,6 @@ export const InstitutionProvider = ({ children }: InstitutionProviderType) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [institutions, setInstitutions] = useState<Institution[]>([]);
   const [error, setError] = useState<string | null>(null);
-  console.log('render');
 
   const fetch = useCallback(async () => {
     try {
@@ -20,8 +19,7 @@ export const InstitutionProvider = ({ children }: InstitutionProviderType) => {
       setInstitutions(response);
       setLoading(false);
     } catch (error) {
-      console.log(error);
-
+      console.error(error);
       setError("Um erro desconhecido ocorreu");
     }
   }, []);
@@ -30,6 +28,10 @@ export const InstitutionProvider = ({ children }: InstitutionProviderType) => {
 
   const getById = useCallback(async (id: number): Promise<Institution | null> => {
     try {
+      const institution = institutions.find((value) => value.id === id);
+
+      if (institution) return institution;
+
       const response = await institutionService.getById(id);
       return response;
     } catch (error) {
@@ -42,7 +44,7 @@ export const InstitutionProvider = ({ children }: InstitutionProviderType) => {
 
       return null;
     }
-  }, []);
+  }, [institutions]);
 
   return (
     <InstitutionContext.Provider
