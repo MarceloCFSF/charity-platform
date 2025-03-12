@@ -15,7 +15,7 @@ class UserSeeder extends Seeder
     {
         if (!User::where('email', 'user@example.com')->exists()) {
             User::create([
-                'name' => 'user',
+                'name' => 'User',
                 'email' => 'user@example.com',
                 'password' => Hash::make('12345678')
             ]);
