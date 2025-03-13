@@ -56,8 +56,7 @@ charity-platform/
 
 ### 📦 Opção 1: Executar com `make prod` (Recomendado)
 ```sh
-cd backend
-cp .env.example .env  # Configure o .env
+cp backend/.env.example backend/.env # Configure o .env
 make prod
 ```
 Isso iniciará os containers do backend e frontend automaticamente, além de executar as migrations e seeders.
@@ -66,8 +65,7 @@ O frontend estará disponível em http://localhost:8000 e o backend em http://lo
 
 ### 🐳 Opção 2: Executar com Docker Compose Manualmente
 ```sh
-cd backend
-cp .env.example .env  # Configure o .env
+cp backend/.env.example backend/.env # Configure o .env
 docker compose up -d
 ```
 Depois, rode as migrations:
