@@ -27,6 +27,7 @@ const InstitutionTile = ({ institution }: InstitutionTileType) => {
         justifyContent: "space-between",
         gap: 2,
         cursor: "pointer",
+        minWidth: 300
       }}
     >
       <Box>

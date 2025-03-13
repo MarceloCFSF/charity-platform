@@ -46,7 +46,8 @@ const DonationTile = ({ donation }: DonationTileType) => {
         alignItems: "center",
         justifyContent: "space-between",
         gap: 2,
-        cursor: "pointervalue.toFixed",
+        cursor: "pointer",
+        minWidth: 300
       }}
     >
       <Box>
