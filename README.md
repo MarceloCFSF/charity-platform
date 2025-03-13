@@ -8,7 +8,6 @@ Uma plataforma para facilitar doações a instituições beneficentes. O usuári
 - 🏛️ **Escolha de Instituição:** Visualização de até 5 instituições disponíveis.
 - 💰 **Doação Única:** O usuário pode doar um valor mínimo de R$ 5,00.
 - 📜 **Histórico de Doações:** O usuário pode consultar suas doações passadas.
-- ⭐ **Favoritos:** O usuário pode marcar uma instituição como favorita.
 
 ## 🏗️ Estrutura do Projeto
 

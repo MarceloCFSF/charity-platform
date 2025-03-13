@@ -47,7 +47,6 @@ const DonationTile = ({ donation }: DonationTileType) => {
         justifyContent: "space-between",
         gap: 2,
         cursor: "pointer",
-        minWidth: 300
       }}
     >
       <Box>

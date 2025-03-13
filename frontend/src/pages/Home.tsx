@@ -30,16 +30,13 @@ const Home = () => {
         sx={{ fontSize: "clamp(2rem, 5vw, 6rem)" }}
       >Instituições</Typography>
 
-      <Grid2 container spacing={2}>
+      <Grid2 container spacing={2} width="100%">
         {institutions.map((institution, index) => ( 
           <Grid2 
             key={`institution_${index}`}
             size={{xs: 12, sm: 6, md: 4}}
           >
-            <InstitutionTile 
-              key={`institution_${index}`}
-              institution={institution}
-            />
+            <InstitutionTile institution={institution} />
           </Grid2>
          ))}
       </Grid2>

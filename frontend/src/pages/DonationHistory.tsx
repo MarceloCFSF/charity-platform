@@ -32,16 +32,13 @@ const DonationHistory = () => {
         sx={{ fontSize: "clamp(2rem, 5vw, 6rem)" }}
       >Histórico de doações</Typography>
 
-      <Grid2 container spacing={2}>
+      <Grid2 container spacing={2} width="100%">
         {donations.map((donation, index) => ( 
           <Grid2 
-            key={`institution_${index}`}
+            key={`donation_${index}`}
             size={{xs: 12, sm: 6, md: 4}}
           >
-            <DonationTile
-              key={`institution_${index}`}
-              donation={donation}
-            />
+            <DonationTile donation={donation} />
           </Grid2>
          ))}
       </Grid2>
