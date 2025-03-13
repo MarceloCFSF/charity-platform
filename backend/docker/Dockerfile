@@ -8,12 +8,14 @@ RUN apt-get update && apt-get install -y \
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
+RUN chown -R www-data:www-data /var/www
+
 USER www-data
 WORKDIR /var/www
 
 COPY --chown=www-data:www-data . .
 
-RUN composer install --no-dev
+RUN composer install
 
 RUN php artisan config:cache && php artisan route:cache
 
