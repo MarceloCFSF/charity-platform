@@ -11,14 +11,9 @@ const InstitutionDetail = () => {
   const [loading, setLoading] = useState<boolean>(true);
   
   const getInstitution = useCallback(async () => {
-    try {
-      const institution = await getById(parseInt(id!));
-      setInstitution(institution);
-      setLoading(false);
-    } catch (error: unknown) {
-      console.error(error);
-      setInstitution(null);
-    }
+    const institution = await getById(parseInt(id!));
+    setInstitution(institution);
+    setLoading(false);
   }, [id, getById])
 
   useEffect(() => { getInstitution() }, [getInstitution])

@@ -12,17 +12,28 @@ import MenuItem from '@mui/material/MenuItem';
 import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism';
 import { Logout } from '@mui/icons-material';
 import { useAuth } from '../hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
 
-const pages = ['Products', 'Pricing', 'Blog'];
+const pages = [
+  {label: 'Instituições', route: '/'},
+  {label: 'Histórico de doações', route: '/history'}
+];
 const title = "Charity Platform";
 
 function ResponsiveAppBar() {
   const { logout } = useAuth();
+  const navigate = useNavigate();
+
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
+
+  const handleNavigation = (route: string) => {
+    navigate(route);
+    handleCloseNavMenu();
+  }
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
@@ -77,8 +88,13 @@ function ResponsiveAppBar() {
               sx={{ display: { xs: 'block', md: 'none' } }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography sx={{ textAlign: 'center' }}>{page}</Typography>
+                <MenuItem 
+                  key={page.label}
+                  onClick={() => handleNavigation(page.route)}
+                >
+                  <Typography sx={{ textAlign: 'center' }}>
+                    {page.label}
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -101,12 +117,10 @@ function ResponsiveAppBar() {
           <Box sx={{ flexGrow: 1, justifyContent: "center", display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
-                key={page}
-                onClick={handleCloseNavMenu}
+                key={page.label}
+                onClick={() => handleNavigation(page.route)}
                 sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                {page}
-              </Button>
+              >{page.label}</Button>
             ))}
           </Box>
           <Box sx={{ flexGrow: 0 }}>

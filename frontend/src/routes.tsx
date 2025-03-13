@@ -7,6 +7,7 @@ import Register from "./pages/Register";
 import DefaultLayout from "./layouts/DefaultLayout";
 import Donation from "./pages/Donation";
 import InstitutionDetail from "./pages/InstitutionDetail";
+import DonationHistory from "./pages/DonationHistory";
 
 const AppRoutes = () => {
   return (
@@ -20,6 +21,7 @@ const AppRoutes = () => {
             <Route path="/" element={<Home />} />
             <Route path="/donation/:id" element={<Donation />} />
             <Route path="/institution/:id" element={<InstitutionDetail />} />
+            <Route path="/history" element={<DonationHistory />} />
           </Route>
         </Route>
       </Routes>

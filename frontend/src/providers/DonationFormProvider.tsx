@@ -22,7 +22,7 @@ const DonationFormProvider = (
 
   const handleSubmit = async (values: typeof initialValues) => {
     const response = await create(values);
-    if (!response) onSubmit?.();
+    if (response) onSubmit?.();
   }
 
   return (

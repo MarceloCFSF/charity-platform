@@ -44,7 +44,7 @@ const Donation = () => {
     <Typography>Error</Typography>
   );
 
-  const handleSubmit = () => navigate('/');
+  const handleSubmit = () => navigate('/history');
 
   return (
     <Box>

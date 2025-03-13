@@ -24,7 +24,7 @@ class DonationStoreRequest extends FormRequest
     {
         return [
             'institution_id' => 'required|exists:institutions,id',
-            'value' => 'required|decimal:0,1,2|min:5'
+            'value' => 'required|decimal:0,2|min:5'
         ];
     }
 }

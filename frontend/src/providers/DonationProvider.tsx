@@ -60,7 +60,7 @@ const DonationProvider = ({ children }: DonationProviderType) => {
       } else {
         setError("Um erro desconhecido ocorreu");
       }
-      return true;
+      return false;
     }
   }, []);
 
